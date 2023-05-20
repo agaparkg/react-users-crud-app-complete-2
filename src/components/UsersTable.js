@@ -1,7 +1,12 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 const UsersTable = ({ users }) => {
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <Table striped bordered hover size="sm">
       <thead>
@@ -12,6 +17,7 @@ const UsersTable = ({ users }) => {
           <th>Last Name</th>
           <th>Email</th>
           <th>Birthdate</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -25,8 +31,14 @@ const UsersTable = ({ users }) => {
               </td>
               <td>{firstname}</td>
               <td>{lastname}</td>
-              <td>{email}</td>
-              <td>{birthdate}</td>
+              <td>
+                <a href="mailto:`{email}`">{email}</a>
+              </td>
+              <td>{formatDate(birthdate)}</td>
+              <td>
+                <Button>Update</Button>
+                <Button variant="danger">Delete</Button>
+              </td>
             </tr>
           );
         })}

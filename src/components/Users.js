@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import UsersTable from "./UsersTable";
 import axios from "axios";
+import Search from "./Search";
 
 const url = "https://61008c3dbca46600171cf917.mockapi.io/api/v1/users";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchUsers = async () => {
     try {
@@ -14,7 +16,7 @@ const Users = () => {
       //   const d = await res.json();
       //   console.log(d);
 
-      const { data, status } = await axios.get(url);
+      const { data } = await axios.get(url);
       //   console.log(data);
       setUsers(data);
     } catch (err) {
@@ -25,36 +27,30 @@ const Users = () => {
   };
 
   // async function fetchUsers(){
-
   // }
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
+  const filteredUsers = users.filter((user) => {
+    return user.firstname.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   return (
     <>
       <Container>
         <Row className="mb-3 mt-3">
-          <Col className="text-start">
-            <form className="row">
-              <div className="col-auto">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="form-control"
-                />
-              </div>
-              <div className="col-auto">
-                <Button>Search</Button>
-              </div>
-            </form>
-          </Col>
+          <Search handleSearch={handleSearch} />
           <Col className="text-end">
             <Button>Create a User</Button>
           </Col>
         </Row>
-        <UsersTable users={users} />
+        <UsersTable users={filteredUsers} />
       </Container>
     </>
   );
