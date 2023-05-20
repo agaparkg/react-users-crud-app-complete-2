@@ -1,12 +1,23 @@
-import React from "react";
-import { Table, Container, Row, Col, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import UsersTable from "./UsersTable";
+
+const url = "https://61008c3dbca46600171cf917.mockapi.io/api/v1/users";
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
+
+  const fetchUsers = () => {};
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
     <>
       <Container>
-        <Row>
-          <Col>
+        <Row className="mb-3 mt-3">
+          <Col className="text-start">
             <form className="row">
               <div className="col-auto">
                 <input
@@ -20,39 +31,11 @@ const Users = () => {
               </div>
             </form>
           </Col>
-          <Col>
+          <Col className="text-end">
             <Button>Create a User</Button>
           </Col>
         </Row>
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td colSpan={2}>Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </Table>
+        <UsersTable />
       </Container>
     </>
   );
