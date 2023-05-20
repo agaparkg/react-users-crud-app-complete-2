@@ -1,6 +1,5 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import { Container, Navbar } from "react-bootstrap";
 
 const Header = () => {
   return (
@@ -10,7 +9,7 @@ const Header = () => {
           <Navbar.Brand href="#home">
             <img
               alt=""
-              src=""
+              src={require("../assets/logo-white.png")}
               width="30"
               height="30"
               className="d-inline-block align-top"

@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-const UsersTable = () => {
+const UsersTable = ({ users }) => {
   return (
     <Table striped bordered hover size="sm">
       <thead>
@@ -15,14 +15,21 @@ const UsersTable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
+        {users.map((user, index) => {
+          const { firstname, lastname, email, birthdate, avatar, id } = user;
+          return (
+            <tr key={id}>
+              <td>{index + 1}</td>
+              <td>
+                <img src={avatar} alt={firstname} />
+              </td>
+              <td>{firstname}</td>
+              <td>{lastname}</td>
+              <td>{email}</td>
+              <td>{birthdate}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );

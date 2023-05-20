@@ -1,13 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import UsersTable from "./UsersTable";
+import axios from "axios";
 
 const url = "https://61008c3dbca46600171cf917.mockapi.io/api/v1/users";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
 
-  const fetchUsers = () => {};
+  const fetchUsers = async () => {
+    try {
+      //   const res = await fetch(url);
+      //   const d = await res.json();
+      //   console.log(d);
+
+      const { data, status } = await axios.get(url);
+      //   console.log(data);
+      setUsers(data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("finally block");
+    }
+  };
+
+  // async function fetchUsers(){
+
+  // }
 
   useEffect(() => {
     fetchUsers();
@@ -35,7 +54,7 @@ const Users = () => {
             <Button>Create a User</Button>
           </Col>
         </Row>
-        <UsersTable />
+        <UsersTable users={users} />
       </Container>
     </>
   );
