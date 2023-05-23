@@ -1,12 +1,13 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
+import formatDate from "../utils/format";
 
-const UsersTable = ({ errorMessage, toggleModal, users, deleteUser }) => {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
+const UsersTable = ({
+  clickUpdateBtn,
+  users,
+  clickDeleteBtn,
+  clickUserDisplayBtn,
+}) => {
   return (
     <Table striped bordered hover size="sm">
       <thead>
@@ -24,11 +25,21 @@ const UsersTable = ({ errorMessage, toggleModal, users, deleteUser }) => {
         {users.length !== 0 ? (
           users.map((user, index) => {
             const { firstname, lastname, email, birthdate, avatar, id } = user;
+
+            const userProfileImg =
+              avatar !== "" && avatar.startsWith("https://")
+                ? avatar
+                : require("../assets/no-img.jpeg");
             return (
               <tr key={id}>
                 <td>{index + 1}</td>
                 <td>
-                  <img src={avatar} alt={firstname} />
+                  <img
+                    style={{ cursor: "pointer" }}
+                    onClick={() => clickUserDisplayBtn(user)}
+                    src={userProfileImg}
+                    alt={firstname}
+                  />
                 </td>
                 <td>{firstname}</td>
                 <td>{lastname}</td>
@@ -37,8 +48,8 @@ const UsersTable = ({ errorMessage, toggleModal, users, deleteUser }) => {
                 </td>
                 <td>{formatDate(birthdate)}</td>
                 <td>
-                  <Button onClick={() => toggleModal(id)}>Update</Button>
-                  <Button variant="danger" onClick={() => deleteUser(id)}>
+                  <Button onClick={() => clickUpdateBtn(user)}>Update</Button>
+                  <Button variant="danger" onClick={() => clickDeleteBtn(user)}>
                     Delete
                   </Button>
                 </td>
@@ -47,7 +58,7 @@ const UsersTable = ({ errorMessage, toggleModal, users, deleteUser }) => {
           })
         ) : (
           <tr>
-            <td colSpan={7}>{errorMessage}</td>
+            <td colSpan={7}>No data found!</td>
           </tr>
         )}
       </tbody>
