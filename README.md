@@ -2,7 +2,7 @@
 
 - This project was deployed using `surge`, refer to this link to get more info on [surge.sh](https://surge.sh/)
   - - Also refer to this article to deploy a React App using `surge` and `github pages` [Link](https://www.freecodecamp.org/news/surge-vs-github-pages-deploying-a-create-react-app-project-c0ecbf317089):
-  - - Deployed demo UI can be viewed here: used-grandfather.surge.sh
+  - - Deployed demo UI can be viewed here: [used-grandfather.surge.sh](used-grandfather.surge.sh)
 
 ## Available scripts to run this project
 
